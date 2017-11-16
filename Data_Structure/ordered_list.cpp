@@ -64,9 +64,22 @@ typedef struct Node
 	struct Node *NEXT;
 }Node;
 typedef struct Node *LinkedList;
-int Linked_list_GetElem(LinkedList, int i, ElemType *e)
+//链表的查询 i为位置 e为参数
+int Linked_list_GetElem(LinkedList L, int i, ElemType *e)
 {
-
+	LinkedList k;
+	int j = 1;
+	k = L->NEXT;//K为链表L的第一个节点，K前面还有0节点
+	//不用for循环的原因是事先不知道循环多少次
+	while (!k && j < i)
+	{
+		k = k->NEXT;
+		++j;
+	}
+	if (!k || j > 1)//如果k=0或则会j>i则查询失败
+		return ERROR;
+	*e = k->data;
+	return SUCCESS;
 }
 int main()
 {
